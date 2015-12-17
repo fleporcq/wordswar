@@ -1,2 +1,2 @@
 #!/bin/bash
-./vendor/bin/phpdoc -d ./src -t ./docs/api
+./vendor/bin/phpdoc -d ./app -t ./docs/api
