@@ -1,12 +1,12 @@
 <?php
-namespace WordsWar\Model\Cell;
+namespace WordsWar\Model;
 
 /**
  * Class Cell
  *
  * Une cellule est une case d'une grille
  *
- * @package WordsWar\Model\Cell
+ * @package WordsWar\Model
  * @abstract
  */
 abstract class Cell
