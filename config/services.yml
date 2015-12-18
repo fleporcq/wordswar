@@ -1,0 +1,7 @@
+services:
+    configuration:
+        class:     WordsWar\Configuration\Configuration
+        arguments: ['config/config.yml']
+    dictionary:
+        class:     WordsWar\Model\Dictionary
+        arguments: ['@configuration', '%language%']
