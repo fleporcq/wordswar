@@ -3,6 +3,7 @@
 namespace WordsWar\Model;
 
 use InvalidArgumentException;
+use WordsWar\Configuration\Configuration;
 use WordsWar\Exception\LoadFileException;
 
 /**
@@ -12,27 +13,35 @@ use WordsWar\Exception\LoadFileException;
  */
 class Dictionary {
 
-    /** @var string Le chemin complet du fichier texte utilisé pour créer le dictionnaire */
-    protected $filename;
+    /** @var Language La langue du dictionnaire */
+    protected $language;
 
     /** @var string Le contenu du fichier texte utilisé pour créer le dictionnaire */
     protected $content;
 
     /**
      * Construit un nouveau dictionnaire
-     * @param string $filename Le chemin complet du fichier texte utilisé pour créer le dictionnaire
+     * @param Configuration $configuration La configuration globale de l'application
+     * @param Language $language La langue du dictionnaire
      * @throws InvalidArgumentException
      * @throws LoadFileException
      */
-    public function __construct($filename) {
-        if ($filename == NULL) {
-            throw new InvalidArgumentException('$filename arg cannot be null');
+    public function __construct(Configuration $configuration, Language $language) {
+        if ($configuration == NULL) {
+            throw new InvalidArgumentException('$configuration arg cannot be null');
         }
-        if (!is_readable($filename)) {
-            throw new LoadFileException('Cannot read the file ' . $filename);
+        
+        if ($language == NULL) {
+            throw new InvalidArgumentException('$language arg cannot be null');
         }
-        $this->filename = $filename;
-        $this->content = file_get_contents($this->filename);
+        
+        $filepath = $configuration->get('dictionaries:path') . DIRECTORY_SEPARATOR . $language . '.txt';
+
+        if (!is_readable($filepath)) {
+            throw new LoadFileException('Cannot read the file ' . $filepath);
+        }
+        $this->language = $language;
+        $this->content = file_get_contents($filepath);
     }
 
     /**

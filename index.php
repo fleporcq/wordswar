@@ -1,8 +1,12 @@
 <?php
 
-use WordsWar\Model\Dictionary;
+use WordsWar\Model\Language;
+use WordsWar\Services;
 
 require_once('vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
 
-$dictionary = new Dictionary(__DIR__ . '/resources/dictionaries/fr.txt');
+
+$container = Services::getContainer();
+$container->setParameter('language', Language::FR());
+$dictionary = $container->get('dictionary');
 var_dump($dictionary->wordExists('truculentes'));
