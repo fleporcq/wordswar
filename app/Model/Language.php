@@ -10,4 +10,5 @@ use WordsWar\Enum;
  */
 class Language extends Enum{
     const FR = 'fr';
+    const EN = 'en';
 }

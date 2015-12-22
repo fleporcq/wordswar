@@ -2,9 +2,10 @@
 
 namespace WordsWar\Configuration;
 
+use InvalidArgumentException;
+use Symfony\Component\Yaml\Yaml;
 use WordsWar\Exception\ConfigurationKeyNotExists;
 use WordsWar\Exception\LoadFileException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Une configuration défini un ensemble de tuples clé / valeur
@@ -63,7 +64,7 @@ class Configuration {
      * Retourne la configuration sous forme d'un tableau indexé
      * @return array
      */
-    protected function toArray() {
+    public function toArray() {
         return $this->values;
     }
 

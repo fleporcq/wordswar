@@ -13,7 +13,7 @@ abstract class Enum {
     protected $value;
 
     /** @var array tableau contenant les constantes définies dans la classe */
-    protected static $constants;
+    protected static $cache = [];
 
     /**
      * Construit une nouvelle valeur de l'énumération
@@ -39,14 +39,16 @@ abstract class Enum {
      * Retourne les constantes sous forme de tableau
      * @return array un tableau contenant constantes
      */
-    public static function toArray() {
-        if (self::$constants == NULL) {
-            $class = new ReflectionClass(get_called_class());
-            self::$constants = $class->getConstants();
+    public static function toArray()
+    {
+        $class = get_called_class();
+        if (!array_key_exists($class, static::$cache)) {
+            $reflection = new \ReflectionClass($class);
+            static::$cache[$class] = $reflection->getConstants();
         }
-        return self::$constants;
+        return static::$cache[$class];
     }
-
+    
     /**
      * Vérifie si $value est une valeur valide de l'énumération
      * @param string $value
@@ -54,17 +56,10 @@ abstract class Enum {
      * @throws InvalidArgumentException
      */
     public static function isValidValue($value) {
-        if ($value == NULL || !is_string($value)) {
-            throw new InvalidArgumentException('$value arg cannot be null and must be a string');
+        if ($value == NULL || !is_scalar($value)) {
+            throw new InvalidArgumentException('$value arg cannot be null and must be a scalar');
         }
-        $valid = false;
-        foreach (self::toArray() as $constantValue) {
-            if ($constantValue == $value) {
-                $valid = true;
-                break;
-            }
-        }
-        return $valid;
+        return array_search($value, self::toArray(), TRUE) !== FALSE;
     }
 
     /**
@@ -86,7 +81,7 @@ abstract class Enum {
      * @return string la valeur si celle-ci est trouvée
      * @throws InvalidArgumentException
      */
-    public static function getValue($key) {
+    public static function search($key) {
         if ($key == NULL || !is_string($key)) {
             throw new InvalidArgumentException('$key arg cannot be null and must be a string');
         }
@@ -96,6 +91,14 @@ abstract class Enum {
         return self::toArray()[strtoupper($key)];
     }
 
+    /**
+     * Retourne la valeur associée à l'instance de l'enum
+     * @return scalar
+     */
+    public function getValue(){
+        return $this->value;
+    }
+    
     /**
      * Retourne une valeur quand l'appel est statique comme : MyEnum::SOME_VALUE() ou SOME_VALUE est une constante de classe
      *

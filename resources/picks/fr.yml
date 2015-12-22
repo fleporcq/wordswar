@@ -1,0 +1,88 @@
+letters:
+    vowel:
+        a:
+            score: 1
+            count: 9
+        e:
+            score: 1
+            count: 15
+        i:
+            score: 1
+            count: 8
+        o:
+            score: 1
+            count: 6
+        u:
+            score: 1
+            count: 6
+        y:
+            score: 10
+            count: 1
+
+    consonant:
+        b:
+            score: 3
+            count: 2
+        c:
+            score: 3
+            count: 2
+        d:
+            score: 2
+            count: 3
+        f:
+            score: 4
+            count: 2
+        g:
+            score: 2
+            count: 2
+        h:
+            score: 4
+            count: 2
+        j:
+            score: 8
+            count: 1
+        k:
+            score: 10
+            count: 1
+        l:
+            score: 1
+            count: 5
+        m:
+            score: 2
+            count: 3
+        n:
+            score: 1
+            count: 6
+        p:
+            score: 3
+            count: 2
+        q:
+            score: 8
+            count: 1
+        r:
+            score: 1
+            count: 6
+        s:
+            score: 1
+            count: 6
+        t:
+            score: 1
+            count: 6
+        v:
+            score: 4
+            count: 2
+        w:
+            score: 10
+            count: 1
+        x:
+            score: 10
+            count: 1
+        z:
+            score: 10
+            count: 1
+
+specials:
+    blank:
+        score: 0
+        count: 2
+

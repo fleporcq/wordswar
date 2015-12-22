@@ -1,7 +1,19 @@
 services:
-    configuration:
-        class:     WordsWar\Configuration\Configuration
+    mainConfig:
+        class: WordsWar\Configuration\Configuration
         arguments: ['config/config.yml']
+    pickConfig:
+        class: WordsWar\Configuration\Configuration
+        arguments: ['resources/picks/%lang%.yml']
     dictionary:
-        class:     WordsWar\Model\Dictionary
-        arguments: ['@configuration', '%language%']
+        class: WordsWar\Model\Dictionary
+        arguments: ['@mainConfig', '%language%']
+    pick:
+        class: WordsWar\Model\Pick
+        arguments: ['@pickConfig']
+    grid:
+        class: WordsWar\Model\Grid
+        arguments: ['%grid.width%', '%grid.height%']
+    game:
+        class: WordsWar\Model\Game
+        arguments: ['%language%', '@dictionary', '@pick', '@grid']
