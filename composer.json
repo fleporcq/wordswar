@@ -2,6 +2,8 @@
     "require": {
         "symfony/dependency-injection": "3.*",
         "symfony/yaml": "3.*",
+        "symfony/var-dumper": "3.*",
+        "doctrine/orm": "2.*",
         "silex/silex": "~1.3"
     },
     "require-dev": {
