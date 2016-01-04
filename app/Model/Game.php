@@ -8,35 +8,32 @@ namespace WordsWar\Model;
  */
 class Game {
 
-    /** @var Language la langue de la partie */
+    /** @var Language la langue de la partie*/
     protected $language;
 
-    /** @var Dictionary le dictionaire de la partie */
+    /** @var Dictionary le dictionaire*/
     protected $dictionary;
 
-    /** @var Grid la grille de la partie */
+    /** @var Pick la pioche*/
+    protected $pick;
+
+    /** @var Grid la grille de jeu*/
     protected $grid;
 
     /**
      * Démarre une nouvelle partie
      * @param Language $language
      * @param Dictionary $dictionary
+     * @param Pick $pick
      * @param Grid $grid
      */
     public function __construct(Language $language, Dictionary $dictionary,  Pick $pick, Grid $grid) {
         $this->language = $language;
         $this->dictionary = $dictionary;
+        $this->pick = $pick;
         $this->grid = $grid;
     }
-
-    /**
-     * Retourne le dictionnaire de la partie
-     * @return Dictionary
-     */
-    public function getDictionary() {
-        return $this->dictionary;
-    }
-
+    
     /**
      * Retourne la grille de jeu
      * @return Grid
@@ -49,7 +46,8 @@ class Game {
      * Démarre la partie et initialise la grille de jeu
      */
     public function start(){
-        $this->grid;
+        $tiles = $this->pick->pop($this->grid->getSize());
+        $this->grid->addTiles($tiles);
     }
 
 }
